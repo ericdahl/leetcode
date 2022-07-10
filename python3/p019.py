@@ -10,7 +10,7 @@ class Solution:
         c = head
         while c:
             items.append(c)
-            c = c.next;
+            c = c.next
 
         before_index = len(items) - n - 1
 
