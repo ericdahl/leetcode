@@ -1,23 +1,18 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-
-        start = 0
-        end = 1
         longest = 0
+        start = 0
+        end = 0
 
-        while end <= len(s):
+        for i in range(len(s)):
+            sublist = s[start:end]
 
-            current_len = end - start
-            sub = set(s[start:end])
-
-            if len(sub) != current_len:
-                start += 1
-                end = start
-                continue
-
-            if current_len > longest:
-                longest = current_len
+            if s[i] in sublist:
+                start += sublist.index(s[i]) + 1
 
             end += 1
+
+            if (end - start) > longest:
+                longest = end - start
 
         return longest
