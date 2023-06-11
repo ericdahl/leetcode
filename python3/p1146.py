@@ -1,10 +1,14 @@
+from sortedcontainers import SortedDict
+
 class SnapshotArray:
 
     def __init__(self, length: int):
         self.a = []
         self.snap_id = 0
         for i in range(length):
-            self.a.append({self.snap_id: 0})
+            # use library SortedDict to try to make get() faster
+            # though it doesn't seem to help much
+            self.a.append(SortedDict({self.snap_id: 0}))
 
     def set(self, index: int, val: int) -> None:
         self.a[index][self.snap_id] = val
@@ -15,12 +19,10 @@ class SnapshotArray:
 
     def get(self, index: int, snap_id: int) -> int:
         l = self.a[index]
-        snap_id = min(snap_id, max(l.keys()))
-        while True:
-            if snap_id in l:
-                return l[snap_id]
-            snap_id -= 1
-
+        if snap_id in l:
+            return l[snap_id]
+        snap_id = l.keys()[l.bisect_left(snap_id) - 1]
+        return l[snap_id]
 
 # Your SnapshotArray object will be instantiated and called as such:
 # obj = SnapshotArray(length)
