@@ -9,6 +9,7 @@ class Solution:
             return None
 
         # no memory constraint so just use an array
+        # FIXME - optimize
         arr = []
         
         c = head
