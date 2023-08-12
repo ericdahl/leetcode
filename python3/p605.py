@@ -17,7 +17,10 @@ class Solution:
 
         while c < len(flowerbed):
 
-            if flowerbed[a:c+1] == [0,0,0]:
+            if n <= 0:
+                return True
+
+            if flowerbed[a:c+1] == [0, 0, 0]:
                 flowerbed[b] = 1
                 n -= 1
 
