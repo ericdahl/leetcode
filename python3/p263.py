@@ -1,7 +1,7 @@
 class Solution:
     def isUgly(self, n: int) -> bool:
 
-        if n == 0:
+        if n <= 0:
             return False
 
         while n % 2 == 0:
