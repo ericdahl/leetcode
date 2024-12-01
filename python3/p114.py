@@ -1,34 +1,20 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
     def flatten(self, root: Optional[TreeNode]) -> None:
         """
-        Do not return anything, modify root in-place instead.
+        Flattens the tree in-place without using nonlocal.
         """
-
         if not root:
             return
 
-        def preorder(node: Optional[TreeNode], l: List[TreeNode]) -> None:
+        def flatten(node: Optional[TreeNode], prev: Optional[TreeNode]) -> Optional[TreeNode]:
             if not node:
-                return
-            l.append(node)
-            preorder(node.left, l)
-            preorder(node.right, l)
+                return prev
 
-        l = []
-        preorder(root, l)
+            prev = flatten(node.right, prev)
+            prev = flatten(node.left, prev)
 
-        node = root
-        l.pop(0)
-        while l:
-            node.right = l.pop(0)
+            node.right = prev
             node.left = None
-            node = node.right
+            return node
 
-
-        return root
+        flatten(root, None)
