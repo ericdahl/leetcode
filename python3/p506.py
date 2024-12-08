@@ -8,15 +8,14 @@ class Solution:
 
         result = [None] * len(score)
 
-        for sii in range(len(score_index)):
-            (s, i) = score_index[sii]
-            if sii == 0:
+        for rank, (s, i) in enumerate(score_index):
+            if rank == 0:
                 result[i] = "Gold Medal"
-            elif sii == 1:
+            elif rank == 1:
                 result[i] = "Silver Medal"
-            elif sii == 2:
+            elif rank == 2:
                 result[i] = "Bronze Medal"
             else:
-                result[i] = str(sii + 1)
+                result[i] = str(rank + 1)
 
         return result
