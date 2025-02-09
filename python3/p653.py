@@ -14,13 +14,17 @@ class Solution:
         return Solution.traverse(node.left) + [node.val] + Solution.traverse(node.right)
 
     def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
-        l = Solution.traverse(root)
+        nums = Solution.traverse(root)
 
-        for i in range(len(l) - 1):
-            for j in range(i + 1, len(l)):
-                s = l[i] + l[j]
-                if s == k:
-                    return True
-                if s > k:
-                    continue
+        left = 0
+        right = len(nums) - 1
+        while left < right:
+            total = nums[left] + nums[right]
+            if total == k:
+                return True
+            elif total < k:
+                left += 1
+            else:
+                right -= 1
+
         return False
