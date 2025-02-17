@@ -7,11 +7,11 @@ class Solution:
         negative = num < 0
         num = abs(num)
 
-        # [0,0,0,0,0,0,0,2,0,2]
-        r = [num // (7 ** i) % 7 for i in range(9, -1, -1)]
+        r = []
+        while num:
+            r.append(str(num % 7))
+            num //= 7
 
-        r = "".join((str(d) for d in r))
-        r = r.lstrip("0")
-        if negative:
-            r = "-" + r
-        return r
+        r_str = "".join(r[::-1])
+        return "-" + r_str if negative else r_str
+
