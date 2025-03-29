@@ -1,20 +1,15 @@
 class StockSpanner:
 
     def __init__(self):
-        # slow but apparently fast enough
-        self.prices = []
+        self.stack = []
 
     def next(self, price: int) -> int:
-        self.prices.insert(0, price)
-
-        i = 0
-        for p in self.prices:
-            if p <= price:
-                i += 1
-            else:
-                break
-        return i
-
+        span = 1
+        while self.stack and self.stack[-1][0] <= price:
+            prev_price, prev_span = self.stack.pop()
+            span += prev_span
+        self.stack.append((price, span))
+        return span
 
 # Your StockSpanner object will be instantiated and called as such:
 # obj = StockSpanner()
