@@ -9,16 +9,17 @@ class Solution:
 
         nodes = []
 
-        def traverse(root: Optional[TreeNode], nodes, level):
+        def traverse(root: Optional[TreeNode], level):
             if not root:
                 return
-            if len(nodes) < level + 1:
+            if len(nodes) == level:
                 nodes.append([])
 
             nodes[level].append(root.val)
-            traverse(root.left, nodes, level + 1)
-            traverse(root.right, nodes, level + 1)
+            traverse(root.left, level + 1)
+            traverse(root.right, level + 1)
 
-        traverse(root, nodes, 0)
+        traverse(root, 0)
 
         return nodes[::-1]
+        
