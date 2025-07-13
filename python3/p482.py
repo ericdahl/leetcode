@@ -3,12 +3,12 @@ class Solution:
         parts = []
         s = s.upper().replace("-", "")
 
-        part = []
-        for c in s[::-1]:
-            if len(part) == k:
-                parts.insert(0, "".join(part))
-                part = []
-            part.insert(0, c)
-        parts.insert(0, "".join(part))
+        st = len(s) % k
+
+        if st > 0:
+            parts.append(s[0:st])
+        s = s[st:]
+        for i in range(0, len(s), k):
+            parts.append(s[i:i+k])
 
         return "-".join(parts)
