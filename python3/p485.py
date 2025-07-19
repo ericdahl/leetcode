@@ -3,9 +3,10 @@ class Solution:
         max_run = 0
         current_run = 0
         for n in nums:
-            if n == 1:
+            if n:
                 current_run += 1
-                max_run = max(max_run, current_run)
+                if current_run > max_run:
+                    max_run = current_run
             else:
                 current_run = 0
         return max_run
