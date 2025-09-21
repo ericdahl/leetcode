@@ -10,8 +10,11 @@ class Solution:
         if not root:
             return 0
 
-        to_add = 0
-        if root.val >= low and root.val <= high:
-            to_add = root.val
+        # if current value is less than low bounds, only look at right subtree
+        if root.val < low:
+            return Solution.rangeSumBST(self, root.right, low, high)
 
-        return to_add + Solution.rangeSumBST(self, root.left, low, high) + Solution.rangeSumBST(self, root.right, low, high)
+        if root.val > high:
+            return Solution.rangeSumBST(self, root.left, low, high)
+
+        return root.val + Solution.rangeSumBST(self, root.left, low, high) + Solution.rangeSumBST(self, root.right, low, high)
