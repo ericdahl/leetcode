@@ -2,11 +2,11 @@ class Solution:
     def findShortestSubArray(self, nums: List[int]) -> int:
 
         starts = {}
-        ends = defaultdict(lambda: -1)
+        ends = {}
         for i, n in enumerate(nums):
             if n not in starts:
                 starts[n] = i
-            ends[n] = max(ends[n], i)
+            ends[n] = i
 
         most_freq = -1
         shortest = float('inf')
