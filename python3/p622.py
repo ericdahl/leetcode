@@ -44,7 +44,7 @@ class MyCircularQueue:
 
         new_front = self.front.next
         self.rear.next = new_front
-        self.front.prev = self.rear
+        new_front.prev = self.rear
         self.len -= 1
         self.front = new_front
 
