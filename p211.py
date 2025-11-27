@@ -6,15 +6,13 @@ class WordDictionary:
 
     def addWord(self, word: str) -> None:
         self.s.add(word)
+
+        for i in range(len(word)):
+            self.s.add(word[:i] + '.' + word[i+1:])
+
         for i in range(0, len(word)):
-            new = list(word)
-            new[i] = "."
-            self.s.add("".join(new))
             for j in range(i + 1, len(word)):
-                new = list(word)
-                new[i] = "."
-                new[j] = "."
-                self.s.add("".join(new))
+                self.s.add("".join(word[:i] + '.' + word[i+1:j] + '.' + word[j+1:]))
 
 
     def search(self, word: str) -> bool:
