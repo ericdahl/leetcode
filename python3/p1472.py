@@ -1,6 +1,7 @@
 class BrowserHistory:
 
     def __init__(self, homepage: str):
+        # note: two stacks more optimal
         self.history = deque([homepage])
         self.position = 0
 
