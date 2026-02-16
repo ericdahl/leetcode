@@ -12,6 +12,7 @@ class TweetCounts:
         increment = TweetCounts.FREQ_MAP[freq]
         result = [0] * ((endTime - startTime) // increment + 1)
         tl = self.tweets[tweetName]
+        # note: more optimal to bisect
         for t in tl:
             if t < startTime:
                 continue
