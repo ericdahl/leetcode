@@ -1,8 +1,13 @@
 class UndergroundSystem:
 
     def __init__(self):
+        # in progress train rides.
+        #   user_id -> (start_station, start_time)
         self.in_progress = {}
-        self.completed = defaultdict(lambda: defaultdict(list))
+
+        # completed train ride times
+        #  (start_station, end_station) -> (total_ride_duration, total_ride_count)
+        self.completed = defaultdict(lambda: (0, 0))
 
 
     def checkIn(self, id: int, stationName: str, t: int) -> None:
@@ -11,11 +16,19 @@ class UndergroundSystem:
 
     def checkOut(self, id: int, stationName: str, t: int) -> None:
         (start_station, start_time) = self.in_progress.pop(id)
-        self.completed[start_station][stationName].append(t - start_time)
+
+        key = (start_station, stationName)
+        old_total, old_count = self.completed[key]
+
+        new_total = old_total + (t - start_time)
+        new_count = old_count + 1
+        self.completed[key] = (new_total, new_count)
+
 
 
     def getAverageTime(self, startStation: str, endStation: str) -> float:
-        return statistics.mean(self.completed[startStation][endStation])
+        total, count = self.completed[(startStation, endStation)]
+        return total / count
 
 
 
