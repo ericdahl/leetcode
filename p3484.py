@@ -1,19 +1,16 @@
 class Spreadsheet:
 
     def __init__(self, rows: int):
-        self.grid = defaultdict(lambda: defaultdict(int)) # column to row
+        self.grid = defaultdict(int)
 
     def setCell(self, cell: str, value: int) -> None:
-        c, r = cell[0], int(cell[1:])
-        self.grid[c][r] = value
-
-
+        self.grid[cell] = value
+        
     def resetCell(self, cell: str) -> None:
         self.setCell(cell, 0)
-
+        
     def _getCell(self, cell: str) -> int:
-        c, r = cell[0], int(cell[1:])
-        return self.grid[c][r]
+        return self.grid[cell]
 
     def _eval(self, expression: str) -> int:
         if expression[0].isalpha():
