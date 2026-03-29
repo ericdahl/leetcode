@@ -2,7 +2,6 @@ class Codec:
 
     def __init__(self):
         self.d = {}
-        self.i = 0
 
     @staticmethod
     def _generate():
@@ -12,20 +11,22 @@ class Codec:
         tiny = Codec._generate()
         while tiny in self.d:
             tiny = self._generate()
-        return f"https://tinyurl.com/{tiny}"
+        return tiny
 
     def encode(self, longUrl: str) -> str:
         """Encodes a URL to a shortened URL.
         """
+        # no dedup here; users should have privacy in this enterprise solution
         tiny = self._generateNew()
         self.d[tiny] = longUrl
-        return tiny
+        return f"https://tinyurl.com/{tiny}"
 
 
     def decode(self, shortUrl: str) -> str:
         """Decodes a shortened URL to its original URL.
         """
-        return self.d[shortUrl]
+        tiny = shortUrl.removeprefix("https://tinyurl.com/")
+        return self.d[tiny]
 
 
 # Your Codec object will be instantiated and called as such:
