@@ -2,40 +2,33 @@ class StockPrice:
 
     def __init__(self):
         self.d = {}
-        self.current_time = -1
         self.max_time = -1
-        self.min = 10**10
-        self.max = -1
+        self.min_heap = [] # (price, timestamp)
+        self.max_heap = [] # (-price, timestamp)
 
     def update(self, timestamp: int, price: int) -> None:
         self.max_time = max(self.max_time, timestamp)
-
-        old_price = -2
-        if timestamp in self.d:
-            old_price = self.d[timestamp]
         self.d[timestamp] = price
 
-        if old_price == self.min:
-            self.min = min(self.d.values())
-        else:
-            self.min = min(self.min, price)
-
-        if old_price == self.max:
-            self.max = max(self.d.values())
-        else:
-            self.max = max(self.max, price)
-
-
+        heapq.heappush(self.min_heap, (price, timestamp))
+        heapq.heappush(self.max_heap, (-price, timestamp))
 
     def current(self) -> int:
         return self.d[self.max_time]
 
-
     def maximum(self) -> int:
-        return self.max
+        while self.max_heap:
+            price, ts = self.max_heap[0]
+            if -price == self.d[ts]: # check if this price is still valid for the time
+                return -price
+            heapq.heappop(self.max_heap)
 
     def minimum(self) -> int:
-        return self.min
+        while self.min_heap:
+            price, ts = self.min_heap[0]
+            if price == self.d[ts]: # check if this price is still valid for the time
+                return price
+            heapq.heappop(self.min_heap)
 
 
 
