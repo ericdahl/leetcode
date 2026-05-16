@@ -9,7 +9,12 @@ class Solution:
             return nums[0] == target
         
         m = len(nums) // 2
-        return Solution.is_in_array_bisect(nums[:m], target) or Solution.is_in_array_bisect(nums[m:], target)
+        left = nums[:m]
+        right = nums[m:]
+        if target >= right[0]:
+            return Solution.is_in_array_bisect(right, target)
+        else:
+            return Solution.is_in_array_bisect(left, target)
 
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         for row in reversed(matrix):
