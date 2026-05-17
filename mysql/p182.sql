@@ -1,4 +1,6 @@
-select email from (
-    select count(email) as c, email from Person group by email
-    ) as T
-    where T.c > 1
+select
+    email 
+from
+    Person
+group by 
+    email having count(email) > 1;
